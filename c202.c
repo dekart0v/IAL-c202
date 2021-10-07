@@ -122,9 +122,10 @@ int Stack_IsFull( const Stack *stack ) { // НЕ РАБОТАЕТ
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
-void Stack_Top( const Stack *stack, char *dataPtr ) { // НЕ РАБОТАЕ
-	return (stack->array[(stack->topIndex)-1]);
-    solved = FALSE; /* V případě řešení, smažte tento řádek! */
+void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
+	*dataPtr = (stack->array[(stack->topIndex)-1]);
+	return &dataPtr;
+    solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
 

@@ -20,7 +20,7 @@
 **    Stack_Init .... inicializace zásobníku ГОТОВО
 **    Stack_IsEmpty ... test na prázdnost zásobníku ГОТОВА
 **    Stack_IsFull .... test na zaplněnost zásobníku НЕ ГОТОВА
-**    Stack_Top ..... přečte hodnotu z vrcholu zásobníku НЕ ГОТОВА
+**    Stack_Top ..... přečte hodnotu z vrcholu zásobníku ГОТОВА
 **    Stack_Pop ..... odstraní prvek z vrcholu zásobníku ВРОДЕ ГОТОВА
 **    Stack_Push .... vloží prvku do zásobníku ВРОДЕ ГОТОВА
 **
@@ -106,7 +106,7 @@ int Stack_IsEmpty( const Stack *stack ) {
  * @returns Nenulovou hodnotu v případě, že je zásobník plný, jinak nulu
  */
 int Stack_IsFull( const Stack *stack ) { // НЕ РАБОТАЕТ
-	return (stack->topIndex == MAX_STACK);
+	return (stack->topIndex == STACK_SIZE);
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -160,7 +160,7 @@ void Stack_Pop( Stack *stack ) {
  * @param data Znak k vložení
  */
 void Stack_Push( Stack *stack, char data ) {
-	if (stack->topIndex < MAX_STACK) {
+	if (stack->topIndex < STACK_SIZE) {
 		stack->array[stack->topIndex] = data;
 		stack->topIndex++;
 	}

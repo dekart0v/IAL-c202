@@ -19,9 +19,9 @@
 **
 **    Stack_Init .... inicializace zásobníku ГОТОВО
 **    Stack_IsEmpty ... test na prázdnost zásobníku ГОТОВА
-**    Stack_IsFull .... test na zaplněnost zásobníku НЕ ГОТОВА
+**    Stack_IsFull .... test na zaplněnost zásobníku ГОТОВА
 **    Stack_Top ..... přečte hodnotu z vrcholu zásobníku ГОТОВА
-**    Stack_Pop ..... odstraní prvek z vrcholu zásobníku ВРОДЕ ГОТОВА
+**    Stack_Pop ..... odstraní prvek z vrcholu zásobníku НЕ ГОТОВА
 **    Stack_Push .... vloží prvku do zásobníku ВРОДЕ ГОТОВА
 **
 ** Své řešení účelně komentujte!
@@ -76,6 +76,7 @@ void Stack_Init( Stack *stack ) {
 	if (stack == NULL) {
 		Stack_Error(SERR_INIT);
 	}
+	stack->topIndex = 0;
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -105,7 +106,7 @@ int Stack_IsEmpty( const Stack *stack ) {
  *
  * @returns Nenulovou hodnotu v případě, že je zásobník plný, jinak nulu
  */
-int Stack_IsFull( const Stack *stack ) { // НЕ РАБОТАЕТ
+int Stack_IsFull( const Stack *stack ) { // РАБОТАЕТ
 	return (stack->topIndex == STACK_SIZE);
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
@@ -123,8 +124,12 @@ int Stack_IsFull( const Stack *stack ) { // НЕ РАБОТАЕТ
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
-	*dataPtr = (stack->array[(stack->topIndex)-1]);
-	return &dataPtr;
+	if (Stack_IsEmpty(stack)) {
+		Stack_Error(SERR_TOP);
+	}
+	else {
+		*dataPtr = (stack->array[(stack->topIndex)-1]);
+	}
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -141,9 +146,11 @@ void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
  *
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  */
-void Stack_Pop( Stack *stack ) { 
-	if (stack->topIndex > 0) {
+void Stack_Pop( Stack *stack ) {
+	if (!Stack_IsEmpty(stack)) {
 		stack->topIndex--;
+		//stack->array[MAX_STACK] = STACK_SIZE;
+		//if ((stack->topIndex == 0) && (sizeof(stack->array) > 0)) (stack->array[0] = NULL);
 	}
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
@@ -160,10 +167,14 @@ void Stack_Pop( Stack *stack ) {
  * @param data Znak k vložení
  */
 void Stack_Push( Stack *stack, char data ) {
-	if (stack->topIndex < STACK_SIZE) {
-		stack->array[stack->topIndex] = data;
-		stack->topIndex++;
+	if (Stack_IsFull(stack)) {
+		Stack_Error(SERR_PUSH);
 	}
+	else if (!Stack_IsFull(stack)) {
+		stack->array[stack->topIndex++] = data;
+		//stack->topIndex++;
+	}
+	
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 

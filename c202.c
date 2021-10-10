@@ -34,6 +34,7 @@
 **/
 
 #include "c202.h"
+#include "string.h" // wonder if this is allowed
 
 int STACK_SIZE = MAX_STACK;
 int error_flag;
@@ -149,8 +150,9 @@ void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
 void Stack_Pop( Stack *stack ) {
 	if (!Stack_IsEmpty(stack)) {
 		stack->topIndex--;
-		//stack->array[MAX_STACK] = STACK_SIZE;
-		//if ((stack->topIndex == 0) && (sizeof(stack->array) > 0)) (stack->array[0] = NULL);
+		if (stack->topIndex == 0) {
+			memset(stack->array, 0, STACK_SIZE); // wonder if this is allowed
+		}
 	}
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
@@ -170,11 +172,9 @@ void Stack_Push( Stack *stack, char data ) {
 	if (Stack_IsFull(stack)) {
 		Stack_Error(SERR_PUSH);
 	}
-	else if (!Stack_IsFull(stack)) {
+	else {
 		stack->array[stack->topIndex++] = data;
-		//stack->topIndex++;
 	}
-	
     solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 

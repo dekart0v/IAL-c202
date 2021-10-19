@@ -34,7 +34,6 @@
 **/
 
 #include "c202.h"
-#include "string.h" // wonder if this is allowed
 
 int STACK_SIZE = MAX_STACK;
 int error_flag;
@@ -91,10 +90,7 @@ void Stack_Init( Stack *stack ) {
  * @returns Nenulovou hodnotu v případě, že je zásobník prázdný, jinak nulu
  */
 int Stack_IsEmpty( const Stack *stack ) {
-	
 	return (stack->topIndex == -1) ? 1 : 0;
-	//return (stack->topIndex == - 1) ? 1 : 0; у меня так я ибу
-
     //solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -110,9 +106,8 @@ int Stack_IsEmpty( const Stack *stack ) {
  *
  * @returns Nenulovou hodnotu v případě, že je zásobník plný, jinak nulu
  */
-int Stack_IsFull( const Stack *stack ) { // РАБОТАЕТ
+int Stack_IsFull( const Stack *stack ) {
 	return (stack->topIndex == STACK_SIZE - 1) ? 1 : 0;
-    //в дискорде у всех так!!! return (stack->topIndex == STACK_SIZE - 1) ? 1 : 0;
 	//solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -128,7 +123,7 @@ int Stack_IsFull( const Stack *stack ) { // РАБОТАЕТ
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
-void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
+void Stack_Top( const Stack *stack, char *dataPtr ) {
 	if (Stack_IsEmpty(stack)) {
 		Stack_Error(SERR_TOP);
 	}
@@ -152,13 +147,8 @@ void Stack_Top( const Stack *stack, char *dataPtr ) { // РАБОТАЕТ
  * @param stack Ukazatel na inicializovanou strukturu zásobníku
  */
 void Stack_Pop( Stack *stack ) {
-	if (!Stack_IsEmpty(stack)) //{
+	if (!Stack_IsEmpty(stack))
 		stack->topIndex--;
-		//if (stack->topIndex == 0) {
-		//	memset(stack->array, 0, STACK_SIZE); // wonder if this is allowed
-		//}
-		//нахуй убрал тк хз 
-	//}
     //solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
@@ -181,7 +171,6 @@ void Stack_Push( Stack *stack, char data ) {
 		stack->topIndex++;
 		stack->array[stack->topIndex] = data;
 	}
-	//stack->topIndex++;
     //solved = TRUE; /* V případě řešení, smažte tento řádek! */
 }
 
